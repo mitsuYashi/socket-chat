@@ -3,6 +3,16 @@
 //-------------------------------------
 const socket = io();
 
+const url = new URL(window.location.href);
+const params = url.searchParams;
+
+const urlRoomId = Math.floor(params.get('roomId'));
+const urlName = params.get('name');
+
+socket.on("connect", () => {
+  socket.emit("join", { roomId: urlRoomId, name: urlName });
+})
+
 /**
  * [イベント] フォームが送信された
  */
@@ -15,13 +25,9 @@ document.querySelector("#frm-post").addEventListener("submit", (e) => {
   if (msg.value === "") {
     return false;
   }
-  const user_name = document.querySelector("#user_name");
-  if (user_name.value === "") {
-    user_name.value = 'user1';
-  }
-
+  
   // Socket.ioサーバへ送信
-  socket.emit("post", { text: msg.value, name: user_name.value });
+  socket.emit("post", { text: msg.value, roomId: urlRoomId, name: urlName });
 
   // 発言フォームを空にする
   msg.value = "";
@@ -30,7 +36,7 @@ document.querySelector("#frm-post").addEventListener("submit", (e) => {
 /**
  * [イベント] 誰かが発言した
  */
-socket.on("room", (msg) => {
+socket.on("message", (msg) => {
   const list = document.querySelector("#msglist");
   const li = document.createElement("li");
   li.innerHTML = `${msg.name}:${msg.text}`;

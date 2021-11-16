@@ -1,34 +1,26 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>SocketIOチャット</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-
 <body>
-
-    <h1>SocketIOチャット</h1>
-
-    <!-- 発言フォーム -->
-    <form id="frm-post">
+    <h1>SocketIOチャット:RoomId</h1>
+    <form id="room-post">
         <label>
-            name
-            <input type="text" id="user_name" name="name" value="user1">
+            <h2>RoomId</h2>
+            <input type="text" id="room" maxlength="4" placeholder="1234">
+            <label>
+                name
+                <input type="text" id="user_name" name="name" value="user1">
+            </label>
         </label>
-        <label>
-            comment
-            <input type="text" id="msg">
-        </label>
-        <button>送信</button>
+        <input type="submit" value="入室">
     </form>
 
-    <!-- 発言ログ -->
-    <ul id="msglist">
-    </ul>
-
     <script src="socket.io/socket.io.min.js"></script>
-    <script src="./js/socket.js"></script>
+    <script src="./js/room.js"></script>
 </body>
-
 </html>
