@@ -6,11 +6,11 @@ const socket = io();
 const url = new URL(window.location.href);
 const params = url.searchParams;
 
-const urlRoomId = params.get('roomId');
+const urlRoomId = Math.floor(params.get('roomId'));
 const urlName = params.get('name');
 
 socket.on("connect", () => {
-  socket.emit("join", { roomId: Math.floor(urlRoomId), name: urlName });
+  socket.emit("join", { roomId: urlRoomId, name: urlName });
 })
 
 /**
@@ -27,7 +27,7 @@ document.querySelector("#frm-post").addEventListener("submit", (e) => {
   }
   
   // Socket.ioサーバへ送信
-  socket.emit("post", { text: msg.value, roomId: 1234, name: 'user1' });
+  socket.emit("post", { text: msg.value, roomId: urlRoomId, name: urlName });
 
   // 発言フォームを空にする
   msg.value = "";
