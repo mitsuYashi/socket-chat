@@ -5,10 +5,10 @@
 ` docker-compose run --rm app npm install `
 
 ` docker-compose up -d `
-
+<!-- 
 ` docker-compose exec app bash `
 
-` node server.js `
+` node server.js ` -->
 
 ## 開発環境
 - container
